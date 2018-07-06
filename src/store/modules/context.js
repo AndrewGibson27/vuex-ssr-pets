@@ -28,7 +28,7 @@ const actions = {
 
 export const contextModule = {
   namespaced: true,
-  state: createDefaultState,
+  state: createDefaultState(),
   mutations,
   actions
 }

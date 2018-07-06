@@ -9,6 +9,7 @@ export default async function serverEntry (context) {
       router.onReady(() => {
         // Check route has components, if not dispatch 404 error
         const components = router.getMatchedComponents()
+        console.log(components)
         if (!components.length) {
           store.dispatch('context/setError', { status: 404, message: 'Page not found' })
           resolve()
@@ -34,6 +35,6 @@ function fetchData (components, store, currentRoute) {
   return Promise.all([
     ...components
       .filter(({ fetch }) => !!fetch)
-      .map(({ fetch }) => fetch(store, currentRoute, null)),
+      .map(({ fetch }) => fetch(store, currentRoute, null))
   ])
 }
