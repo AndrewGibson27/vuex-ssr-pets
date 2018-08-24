@@ -7,6 +7,8 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 const { createBundleRenderer } = require('vue-server-renderer')
 
+const api = require('../api')
+
 const resolve = file => path.resolve(__dirname, file)
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -29,6 +31,7 @@ app.all('*', (req, res, next) => {
 // Setup body parsing
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use('/api', api)
 
 const template = fs.readFileSync(resolve('../src/index.template.html'), 'utf-8')
 

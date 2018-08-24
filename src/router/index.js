@@ -13,10 +13,6 @@ export function createRouter () {
     mode: 'history',
     routes: [
       {
-        path: '/',
-        redirect: { name: 'location-list' }
-      },
-      {
         path: '/pets',
         name: 'home',
         component: PetsHome,
@@ -37,8 +33,16 @@ export function createRouter () {
             path: 'detail/:id',
             name: 'pet-detail',
             component: PetDetail
+          },
+          {
+            path: '*',
+            redirect: { name: 'location-list' }
           }
         ]
+      },
+      {
+        path: '*',
+        redirect: { name: 'location-list' }
       }
     ]
   })

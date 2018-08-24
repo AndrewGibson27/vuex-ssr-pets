@@ -51,7 +51,7 @@ module.exports = function setupDevServer (app, cb) {
     if (stats.errors.length) return
 
     clientManifest = JSON.parse(
-      readFile(devMiddleware.fileSystem, clientOutputPath, 'vue-client-manifest.json'),
+      readFile(devMiddleware.fileSystem, clientOutputPath, 'vue-client-manifest.json')
     )
     if (bundle) ready(bundle, { clientManifest })
   })

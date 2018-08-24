@@ -1,8 +1,7 @@
-import Vue from 'vue'
-
 function createDefaultState () {
   return {
-    error: null
+    error: null,
+    loading: false
   }
 }
 
@@ -11,17 +10,26 @@ const mutations = {
     state.error = error
   },
 
+  SET_LOADING (state, loading) {
+    state.loading = loading
+  },
+
   DESTROY (state) {
     Object.assign(state, createDefaultState())
   }
 }
 
 const actions = {
-  async setError ({ commit }, error) {
+  setError ({ commit }, error) {
     commit('SET_ERROR', error)
   },
 
-  async reset ({ commit }) {
+  setLoading ({ commit }, loading) {
+    console.log(loading)
+    commit('SET_LOADING', loading)
+  },
+
+  reset ({ commit }) {
     commit('DESTROY')
   }
 }

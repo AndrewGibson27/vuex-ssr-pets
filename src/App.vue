@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <p v-if="error">{{ error.message }}</p>
+    <p v-else-if="loading">Loading ...</p>
+    <router-view v-else></router-view>
   </div>
 </template>
 
@@ -8,6 +10,10 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'App'
+  name: 'App',
+
+  computed: {
+    ...mapState('context', ['error', 'loading'])
+  }
 }
 </script>
