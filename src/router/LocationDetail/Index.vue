@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import universalFetch from '../../mixins/universalFetch'
+import criticalFetch from '../../mixins/criticalFetch'
 import Detail from './containers/Detail.vue'
 
 export default {
@@ -12,7 +12,7 @@ export default {
   components: { Detail },
 
   mixins: [
-    universalFetch
+    criticalFetch
   ],
 
   fetch: ({ dispatch }, { params: { id } }) => (
