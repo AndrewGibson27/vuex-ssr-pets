@@ -3,8 +3,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
+import universalFetch from '../../mixins/universalFetch'
 import Detail from './containers/Detail.vue'
 
 export default {
@@ -12,22 +11,12 @@ export default {
 
   components: { Detail },
 
-  async beforeRouteUpdate (to, from, next) {
-    const { params: { id } } = to
-    try {
-      await this.getLocationDetail({ id })
-      next()
-    } catch (err) {
-      next(err)
-    }
-  },
+  mixins: [
+    universalFetch
+  ],
 
-  fetch ({ dispatch }, { params: { id } }) {
-    return dispatch('locationDetail/get', { id })
-  },
-
-  methods: {
-    ...mapActions({ getLocationDetail: 'locationDetail/get' })
-  }
+  fetch: ({ dispatch }, { params: { id } }) => (
+    dispatch('locationDetail/get', { id })
+  )
 }
 </script>

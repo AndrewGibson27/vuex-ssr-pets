@@ -5,6 +5,7 @@
 <script>
 import { mapActions } from 'vuex'
 
+import clientFetch from '../../mixins/clientFetch'
 import Detail from './containers/Detail.vue'
 
 export default {
@@ -12,14 +13,9 @@ export default {
 
   components: { Detail },
 
-  mounted () {
-    this.getData(this.$route.params.id)
-  },
-
-  async beforeRouteUpdate (to, from, next) {
-    await this.getData(to.params.id)
-    next()
-  },
+  mixins: [
+    clientFetch
+  ],
 
   methods: {
     ...mapActions({ getPetDetail: 'petDetail/get' }),
