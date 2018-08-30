@@ -7,11 +7,11 @@ function createDefaultState () {
 
 const mutations = {
   SET_ERROR (state, error) {
-    state.error = error
+    Object.assign(state, { error, loading: false })
   },
 
-  SET_LOADING (state, loading) {
-    state.loading = loading
+  SET_LOADING (state) {
+    Object.assign(state, { error: null, loading: true })
   },
 
   DESTROY (state) {
@@ -24,9 +24,8 @@ const actions = {
     commit('SET_ERROR', error)
   },
 
-  setLoading ({ commit }, loading) {
-    console.log(loading)
-    commit('SET_LOADING', loading)
+  setLoading ({ commit }) {
+    commit('SET_LOADING')
   },
 
   reset ({ commit }) {

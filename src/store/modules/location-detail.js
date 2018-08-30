@@ -4,7 +4,7 @@ import { API_PREFIX } from '../../../constants'
 
 function createDefaultState () {
   return {
-    data: []
+    data: {}
   }
 }
 
@@ -15,20 +15,20 @@ const mutations = {
 }
 
 const actions = {
-  async getAll ({ commit }) {
-    const response = await axios.get(`${API_PREFIX}pets`)
+  async get ({ commit }, { id }) {
+    const response = await axios.get(`${API_PREFIX}locations/${id}`)
     commit('ADD', response.data)
     return response
   }
 }
 
 const getters = {
-  list (state) {
-    return state.data
+  detail (state) {
+    return state
   }
 }
 
-export const allPetsModule = {
+export const locationDetailModule = {
   namespaced: true,
   state: createDefaultState(),
   getters,

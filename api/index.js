@@ -12,6 +12,17 @@ router.get('/pets', (req, res) => {
   res.json(pets)
 })
 
+router.get('/locations/:id', (req, res) => {
+  const sentId = parseInt(req.params.id)
+  const location = locations.find(location => location.id === sentId)
+
+  if (!location) {
+    res.status(404).json({ error: 'not found' })
+  } else {
+    res.json(location)
+  }
+})
+
 router.get('/pets/:id', (req, res) => {
   const sentId = parseInt(req.params.id)
   const pet = pets.find(pet => pet.id === sentId)

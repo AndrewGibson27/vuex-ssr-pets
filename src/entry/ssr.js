@@ -6,6 +6,7 @@ export default async function serverEntry (context) {
 
   try {
     await new Promise((resolve, reject) => {
+      // we should have an error callback here
       router.onReady(() => {
         const components = router.getMatchedComponents()
         fetchData(components, store, router.currentRoute)
@@ -14,8 +15,8 @@ export default async function serverEntry (context) {
       })
     })
   } catch (error) {
-    const message = 'Critical Error'
-    await store.dispatch('context/setError', { message, status: 500 })
+    const message = 'Something went terribly wrong'
+    store.dispatch('context/setError', { message, status: 500 })
   }
 
   context.state = store.state

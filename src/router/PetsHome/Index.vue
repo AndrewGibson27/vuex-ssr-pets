@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 import List from './containers/List.vue'
 
 export default {
@@ -16,18 +14,6 @@ export default {
 
   components: { List },
 
-  fetch (store) {
-    const { isLoaded } = store.state.allPets
-    if (isLoaded) return false
-    return store.dispatch('allPets/getAll')
-  },
-
-  beforeRouteLeave () {
-    this.setIsLoaded(false)
-  },
-
-  methods: {
-    ...mapActions(['allPets/setIsLoaded'])
-  }
+  fetch: ({ dispatch }) => dispatch('allPets/getAll')
 }
 </script>

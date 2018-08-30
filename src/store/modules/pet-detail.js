@@ -13,9 +13,11 @@ function createDefaultState () {
 
 const mutations = {
   SUCCESS (state, data) {
-    state.data = data
-    state.didComplete = true
-    state.isLoading = false
+    Object.assign(state, {
+      data,
+      didComplete: true,
+      isLoading: false
+    })
   },
 
   LOADING (state) {
@@ -23,9 +25,11 @@ const mutations = {
   },
 
   ERROR (state) {
-    state.didError = true
-    state.didComplete = true
-    state.isLoading = false
+    Object.assign(state, {
+      didError: true,
+      didComplete: true,
+      isLoading: false
+    })
   }
 }
 
