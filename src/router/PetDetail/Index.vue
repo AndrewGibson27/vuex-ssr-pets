@@ -13,14 +13,19 @@ export default {
 
   components: { Detail },
 
-  mixins: [
-    clientFetch
-  ],
+  mixins: [clientFetch],
+
+  data () {
+    return {
+      shouldUpdate: true,
+      updateOnQueryChange: false
+    }
+  },
 
   methods: {
     ...mapActions({ getPetDetail: 'petDetail/get' }),
 
-    getData (id) {
+    getData ({ params: { id } }) {
       return this.getPetDetail({ id })
     }
   }

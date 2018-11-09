@@ -11,9 +11,14 @@ export default {
 
   components: { Detail },
 
-  mixins: [
-    criticalFetch
-  ],
+  mixins: [criticalFetch],
+
+  data () {
+    return {
+      shouldUpdate: true,
+      updateOnQueryChange: false
+    }
+  },
 
   fetch: ({ dispatch }, { params: { id } }) => (
     dispatch('locationDetail/get', { id })
