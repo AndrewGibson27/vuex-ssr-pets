@@ -1,37 +1,25 @@
 <template>
-  <div
-    v-if="isNotReady"
+  <with-loader-and-error
+    :data-objects="[detail]"
   >
-    Loading ...
-  </div>
-  <div
-    v-else-if="didError"
-  >
-    Something bad happened!
-  </div>
-  <div
-    v-else
-  >
-    <h2>{{ detail.data.name }}</h2>
-  </div>
+    <template slot="content">
+      <h2>{{ detail.data.name }}</h2>
+      <p>Species: {{ detail.data.species }}</p>
+      <p>Breed: {{ detail.data.breed }}</p>
+    </template>
+  </with-loader-and-error>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
-import loadingAndError from '../../../mixins/loadingAndError'
+import WithLoaderAndError from '../../../wrappers/WithLoaderAndError.vue'
 
 export default {
   name: 'Detail',
 
-  mixins: [
-    loadingAndError
-  ],
-
-  data () {
-    return {
-      vuexDataKeys: ['detail']
-    }
+  components: {
+    WithLoaderAndError
   },
 
   computed: {
