@@ -9,7 +9,20 @@ router.get('/locations', (req, res) => {
 })
 
 router.get('/pets', (req, res) => {
-  res.json(pets)
+  const { query: { species, breed } } = req
+  if (!species && !breed) res.json(pets)
+
+  const filtered = pets.filter(pet => {
+    if (species && breed) {
+      return pet.species === species && pet.breed === breed
+    } else if (species) {
+      return pet.species === species
+    } else {
+      return pet.breed === breed
+    }
+  })
+
+  res.json(filtered)
 })
 
 router.get('/locations/:id', (req, res) => {

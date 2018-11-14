@@ -9,7 +9,6 @@ router.onError(() => {
   store.dispatch('context/setError', { message, status: 500 })
 })
 
-// we should have an error callback here
 router.onReady(() => {
   router.beforeResolve(async (to, from, next) => {
     const matched = router.getMatchedComponents(to)

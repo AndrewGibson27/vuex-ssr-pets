@@ -19,7 +19,31 @@ export default {
   components: { ListItem },
 
   computed: {
-    ...mapGetters('allPets', { pets: 'list' })
+    ...mapGetters('allPets', [
+      'list',
+      'petsInSpecies',
+      'petsInBreed'
+    ]),
+
+    ...mapGetters('allPetsForm', [
+      'currSpecies',
+      'currBreed'
+    ]),
+
+    pets () {
+      if (
+        this.currSpecies === 'all' &&
+        this.currBreed === 'all'
+      ) {
+        return this.list
+      }
+
+      if (this.currBreed === 'all') {
+        return this.petsInSpecies(this.currSpecies)
+      }
+
+      return this.petsInBreed(this.currBreed)
+    }
   }
 }
 </script>

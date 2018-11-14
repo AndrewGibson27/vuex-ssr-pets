@@ -15,6 +15,7 @@ const mutations = {
   SUCCESS (state, data) {
     Object.assign(state, {
       data,
+      didError: false,
       didComplete: true,
       isLoading: false
     })
