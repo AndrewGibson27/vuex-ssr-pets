@@ -1,5 +1,11 @@
 <template>
-  <detail />
+  <with-loader
+    :is-loading="isLoading"
+  >
+    <template slot="content">
+      <detail />
+    </template>
+  </with-loader>
 </template>
 
 <script>
@@ -7,20 +13,14 @@ import { mapActions } from 'vuex'
 
 import clientFetch from '../../mixins/clientFetch'
 import Detail from './containers/Detail.vue'
+import WithLoader from '../../wrappers/WithLoader'
 
 export default {
   name: 'PetDetail',
 
-  components: { Detail },
+  components: { Detail, WithLoader },
 
   mixins: [clientFetch],
-
-  data () {
-    return {
-      shouldUpdate: true,
-      updateOnQueryChange: false
-    }
-  },
 
   methods: {
     ...mapActions({ getPetDetail: 'petDetail/get' }),

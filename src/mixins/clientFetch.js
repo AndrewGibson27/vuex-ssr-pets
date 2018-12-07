@@ -1,21 +1,37 @@
+import routeMixin from './route'
+
 export default {
-  mounted () {
-    this.getData(this.$route)
+  mixins: [routeMixin],
+
+  async mounted () {
+    this.isLoading = true
+
+    try {
+      await this.getData(this.$route)
+    } catch (err) {
+      this.$store.dispatch('context/setError', {
+        message: 'Something has gone terribly wrong',
+        status: 500
+      })
+    } finally {
+      this.isLoading = false
+    }
   },
 
   async beforeRouteUpdate (to, from, next) {
-    if (this.shouldUpdate) {
-      if (
-        to.path === from.path &&
-        !this.updateOnQueryChange
-      ) {
-        return next()
-      }
+    if (this.shouldRefetch) {
+      this.isLoading = true
 
-      await this.getData(to)
-      return next()
+      try {
+        await this.getData(to)
+        next()
+      } catch (err) {
+        next(err)
+      } finally {
+        this.isLoading = false
+      }
     }
 
-    return next()
+    next()
   }
 }

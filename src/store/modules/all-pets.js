@@ -10,6 +10,7 @@ function createDefaultState () {
 
 const mutations = {
   ADD (state, data) {
+    state.isLoading = false
     state.data = data
   }
 }
