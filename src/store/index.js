@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import { contextModule } from './modules/context'
 import { allPetsModule } from './modules/all-pets'
-import { allPetsFormModule } from './modules/all-pets-form'
 import { locationsModule } from './modules/locations'
 import { petDetailModule } from './modules/pet-detail'
 import { locationDetailModule } from './modules/location-detail'
@@ -15,7 +14,6 @@ export function createStore () {
     modules: {
       context: contextModule,
       allPets: allPetsModule,
-      allPetsForm: allPetsFormModule,
       locations: locationsModule,
       petDetail: petDetailModule,
       locationDetail: locationDetailModule

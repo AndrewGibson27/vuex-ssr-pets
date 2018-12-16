@@ -4,13 +4,14 @@
     method="get"
   >
     <select-input
-      :value="species"
+      :value="currSpecie"
       :options="speciesOpts"
       @callback="onUpdate"
       name="species"
     />
     <select-input
-      :value="breed"
+      v-if="currSpecie !== 'all'"
+      :value="currBreed"
       :options="breedOpts"
       @callback="onUpdate"
       name="breed"
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import SelectInput from '../components/SelectInput'
 
@@ -29,69 +30,35 @@ export default {
   components: { SelectInput },
 
   computed: {
-    ...mapGetters('allPets', [
-      'allSpecies',
-      'allBreeds',
-      'breedsInSpecies'
-    ]),
-
-    ...mapGetters('allPetsForm', [
-      'currSpecies',
+    ...mapState('allPets', [
+      'currSpecie',
       'currBreed'
     ]),
 
-    species () {
-      if (
-        this.currSpecies &&
-        this.allSpecies.includes(this.currSpecies.toLowerCase())
-      ) {
-        return this.currSpecies.toLowerCase()
-      }
-
-      return 'all'
-    },
-
-    breed () {
-      if (this.species === 'all') return 'all'
-
-      const validBreeds = this.breedsInSpecies(this.species)
-
-      if (
-        this.currBreed &&
-        validBreeds.includes(this.currBreed.toLowerCase())
-      ) {
-        return this.currBreed.toLowerCase()
-      }
-
-      return 'all'
-    },
+    ...mapGetters('allPets', [
+      'allSpecies',
+      'breedsInSpecie'
+    ]),
 
     speciesOpts () {
       return [
-        { id: 0, value: 'all', name: 'all' },
-        ...this.allSpecies.map((specie, idx) => ({
-          id: idx + 1,
-          value: specie,
-          name: specie
+        { id: 'all', value: 'all', text: 'all' },
+        ...this.allSpecies.map(({ name, id }) => ({
+          id,
+          value: name,
+          text: name
         }))
       ]
     },
 
     breedOpts () {
-      let choices
-
-      if (this.species === 'all') {
-        choices = this.allBreeds
-      } else {
-        choices = this.breedsInSpecies(this.species)
-      }
-
+      const choices = this.breedsInSpecie(this.currSpecie)
       return [
-        { id: 0, value: 'all', name: 'all' },
-        ...choices.map((breed, idx) => ({
-          id: idx + 1,
-          value: breed,
-          name: breed
+        { id: 'all', value: 'all', text: 'all' },
+        ...choices.map(({ name, id }) => ({
+          id,
+          value: name,
+          text: name
         }))
       ]
     }

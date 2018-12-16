@@ -4,14 +4,23 @@ import { API_PREFIX } from '../../../constants'
 
 function createDefaultState () {
   return {
-    data: []
+    data: [],
+    currBreed: 'all',
+    currSpecie: 'all'
   }
 }
 
 const mutations = {
   ADD (state, data) {
-    state.isLoading = false
     state.data = data
+  },
+
+  SET_CURR_SPECIE (state, currSpecie) {
+    state.currSpecie = currSpecie
+  },
+
+  SET_CURR_BREED (state, currBreed) {
+    state.currBreed = currBreed
   }
 }
 
@@ -20,53 +29,55 @@ const actions = {
     const response = await axios.get(`${API_PREFIX}pets`)
     commit('ADD', response.data)
     return response
+  },
+
+  setCurrSpecie ({ commit }, specie) {
+    commit('SET_CURR_SPECIE', specie)
+  },
+
+  setCurrBreed ({ commit }, breed) {
+    commit('SET_CURR_BREED', breed)
   }
 }
 
 const getters = {
-  list (state) {
-    return state.data
-  },
+  list: ({ data }) => data,
 
   allSpecies (state) {
-    const species = []
-    state.data.forEach((pet) => {
-      if (!species.includes(pet.species)) {
-        species.push(pet.species)
-      }
-    })
-    return species
+    const species = state.data.map(pet => ({
+      id: pet.id,
+      name: pet.species
+    }))
+
+    // hacky because I didn't feel like
+    // writing a filter utility
+    return [species[0], species[2]]
   },
 
-  allBreeds (state) {
+  breedsInSpecie: state => specie => {
     const breeds = []
+
     state.data.forEach((pet) => {
-      if (!breeds.includes(pet.breed)) {
-        breeds.push(pet.breed)
+      if (pet.species === specie) {
+        breeds.push({
+          id: pet.id,
+          name: pet.breed
+        })
       }
     })
+
     return breeds
   },
 
-  breedsInSpecies: state => specie => {
-    const breeds = []
-    state.data.forEach((pet) => {
-      if (pet.species === specie &&
-        !breeds.includes(pet.breed)
-      ) {
-        breeds.push(pet.breed)
-      }
-    })
-    return breeds
-  },
+  petsInSpecie: state => specie => (
+    state.data.filter(pet => pet.species === specie)
+  ),
 
-  petsInSpecies: state => species => {
-    return state.data.filter(pet => pet.species === species)
-  },
-
-  petsInBreed: state => breed => {
-    return state.data.filter(pet => pet.breed === breed)
-  }
+  petsInBreedAndSpecie: state => (specie, breed) => (
+    state.data.filter(pet => (
+      pet.breed === breed && pet.species === specie
+    ))
+  )
 }
 
 export const allPetsModule = {

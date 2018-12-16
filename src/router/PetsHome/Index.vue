@@ -20,19 +20,23 @@ export default {
 
   components: { List, FilterForm },
 
-  async beforeRouteUpdate (to, from, next) {
-    const { breed, species } = to.query
-    if (breed) this.setCurrBreed(breed)
-    if (species) this.setCurrSpecies(species)
+  beforeRouteUpdate (to, from, next) {
+    const { species, breed } = to.query
+    this.setCurrSpecieAndBreed(species, breed)
     next()
+  },
+
+  mounted () {
+    const { species, breed } = this.$route.query
+    this.setCurrSpecieAndBreed(species, breed)
   },
 
   fetch: ({ dispatch }) => dispatch('allPets/getAll'),
 
   methods: {
-    ...mapActions('allPetsForm', [
+    ...mapActions('allPets', [
       'setCurrBreed',
-      'setCurrSpecies'
+      'setCurrSpecie'
     ]),
 
     updateRoute (paramName, paramValue) {
@@ -40,17 +44,22 @@ export default {
 
       if (paramName === 'species') {
         query = {
-          [paramName]: paramValue,
+          species: paramValue,
           breed: 'all'
         }
       } else {
         query = {
           ...this.$route.query,
-          [paramName]: paramValue
+          breed: paramValue
         }
       }
 
       this.$router.push({ query })
+    },
+
+    setCurrSpecieAndBreed (currSpecie, currBreed) {
+      if (currSpecie) this.setCurrSpecie(currSpecie)
+      if (currBreed) this.setCurrBreed(currBreed)
     }
   }
 }

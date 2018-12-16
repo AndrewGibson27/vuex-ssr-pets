@@ -9,7 +9,7 @@
       :value="option.value"
       :selected="option.value === value"
     >
-      {{ option.name }}
+      {{ option.text }}
     </option>
   </select>
 </template>

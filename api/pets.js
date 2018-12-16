@@ -21,7 +21,7 @@ module.exports = [
     location: 0
   },
   {
-    id: 4,
+    id: 3,
     species: 'cat',
     breed: 'lion',
     name: 'cindy',

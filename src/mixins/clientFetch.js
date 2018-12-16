@@ -19,7 +19,7 @@ export default {
   },
 
   async beforeRouteUpdate (to, from, next) {
-    if (this.shouldRefetch) {
+    if (this.shouldRefetch(to, from)) {
       this.isLoading = true
 
       try {
@@ -31,7 +31,5 @@ export default {
         this.isLoading = false
       }
     }
-
-    next()
   }
 }

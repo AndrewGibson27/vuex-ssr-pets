@@ -4,7 +4,7 @@ export default {
   mixins: [routeMixin],
 
   async beforeRouteUpdate (to, from, next) {
-    if (this.shouldRefetch) {
+    if (this.shouldRefetch(to, from)) {
       this.isLoading = true
 
       try {

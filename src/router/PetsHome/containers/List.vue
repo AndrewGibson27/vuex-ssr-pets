@@ -1,15 +1,16 @@
 <template>
-  <ul>
+  <ul v-if="pets.length">
     <list-item
       v-for="pet in pets"
       :key="pet.id"
       :pet="pet"
     />
   </ul>
+  <p v-else>No pets match this criteria. Sorry!</p>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import ListItem from '../components/ListItem.vue'
 
@@ -19,30 +20,27 @@ export default {
   components: { ListItem },
 
   computed: {
-    ...mapGetters('allPets', [
-      'list',
-      'petsInSpecies',
-      'petsInBreed'
-    ]),
-
-    ...mapGetters('allPetsForm', [
-      'currSpecies',
+    ...mapState('allPets', [
+      'currSpecie',
       'currBreed'
     ]),
 
+    ...mapGetters('allPets', [
+      'list',
+      'petsInSpecie',
+      'petsInBreedAndSpecie'
+    ]),
+
     pets () {
-      if (
-        this.currSpecies === 'all' &&
-        this.currBreed === 'all'
-      ) {
+      if (this.currSpecie === 'all') {
         return this.list
       }
 
       if (this.currBreed === 'all') {
-        return this.petsInSpecies(this.currSpecies)
+        return this.petsInSpecie(this.currSpecie)
       }
 
-      return this.petsInBreed(this.currBreed)
+      return this.petsInBreedAndSpecie(this.currSpecie, this.currBreed)
     }
   }
 }
