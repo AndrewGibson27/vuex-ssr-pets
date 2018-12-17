@@ -4,7 +4,7 @@ import { API_PREFIX } from '../../../constants'
 
 function createDefaultState () {
   return {
-    data: [],
+    all: [],
     currBreed: 'all',
     currSpecie: 'all'
   }
@@ -12,7 +12,7 @@ function createDefaultState () {
 
 const mutations = {
   ADD (state, data) {
-    state.data = data
+    state.all = data
   },
 
   SET_CURR_SPECIE (state, currSpecie) {
@@ -41,10 +41,8 @@ const actions = {
 }
 
 const getters = {
-  list: ({ data }) => data,
-
   allSpecies (state) {
-    const species = state.data.map(pet => ({
+    const species = state.all.map(pet => ({
       id: pet.id,
       name: pet.species
     }))
@@ -57,7 +55,7 @@ const getters = {
   breedsInSpecie: state => specie => {
     const breeds = []
 
-    state.data.forEach((pet) => {
+    state.all.forEach((pet) => {
       if (pet.species === specie) {
         breeds.push({
           id: pet.id,
@@ -70,11 +68,11 @@ const getters = {
   },
 
   petsInSpecie: state => specie => (
-    state.data.filter(pet => pet.species === specie)
+    state.all.filter(pet => pet.species === specie)
   ),
 
   petsInBreedAndSpecie: state => (specie, breed) => (
-    state.data.filter(pet => (
+    state.all.filter(pet => (
       pet.breed === breed && pet.species === specie
     ))
   )

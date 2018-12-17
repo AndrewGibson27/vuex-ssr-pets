@@ -4,13 +4,13 @@ import { API_PREFIX } from '../../../constants'
 
 function createDefaultState () {
   return {
-    data: {}
+    detail: {}
   }
 }
 
 const mutations = {
   ADD (state, data) {
-    state.data = data
+    state.detail = data
   }
 }
 
@@ -22,16 +22,9 @@ const actions = {
   }
 }
 
-const getters = {
-  detail (state) {
-    return state
-  }
-}
-
 export const locationDetailModule = {
   namespaced: true,
   state: createDefaultState(),
-  getters,
   mutations,
   actions
 }

@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h2>{{ detail.data.name }}</h2>
-    <p>Species: {{ detail.data.species }}</p>
-    <p>Breed: {{ detail.data.breed }}</p>
+    <h2>{{ detail.name }}</h2>
+    <p>Species: {{ detail.species }}</p>
+    <p>Breed: {{ detail.breed }}</p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Detail',
 
   computed: {
-    ...mapGetters({ detail: 'petDetail/detail' })
+    ...mapState('petDetail', ['detail'])
   }
 }
 </script>

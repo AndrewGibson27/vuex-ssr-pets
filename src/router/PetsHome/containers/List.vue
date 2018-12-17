@@ -21,19 +21,19 @@ export default {
 
   computed: {
     ...mapState('allPets', [
+      'all',
       'currSpecie',
       'currBreed'
     ]),
 
     ...mapGetters('allPets', [
-      'list',
       'petsInSpecie',
       'petsInBreedAndSpecie'
     ]),
 
     pets () {
       if (this.currSpecie === 'all') {
-        return this.list
+        return this.all
       }
 
       if (this.currBreed === 'all') {

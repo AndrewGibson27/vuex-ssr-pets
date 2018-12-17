@@ -1,7 +1,7 @@
 <template>
   <ul>
     <list-item
-      v-for="location in locations"
+      v-for="location in all"
       :key="location.id"
       :location="location"
     />
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import ListItem from '../components/ListItem.vue'
 
@@ -19,7 +19,7 @@ export default {
   components: { ListItem },
 
   computed: {
-    ...mapGetters('locations', { locations: 'list' })
+    ...mapState('locations', ['all'])
   }
 }
 </script>

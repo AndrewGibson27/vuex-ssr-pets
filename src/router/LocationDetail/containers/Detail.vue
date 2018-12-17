@@ -1,15 +1,15 @@
 <template>
-  <h2>{{ detail.data.name }}</h2>
+  <h2>{{ detail.name }}</h2>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Detail',
 
   computed: {
-    ...mapGetters({ detail: 'locationDetail/detail' })
+    ...mapState('locationDetail', ['detail'])
   }
 }
 </script>

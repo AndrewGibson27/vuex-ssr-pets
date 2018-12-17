@@ -4,34 +4,27 @@ import { API_PREFIX } from '../../../constants'
 
 function createDefaultState () {
   return {
-    data: {}
+    detail: {}
   }
 }
 
 const mutations = {
-  SUCCESS (state, data) {
-    state.data = data
-  }
+  ADD(state, data) {
+    state.detail = data
+  },
 }
 
 const actions = {
   async get ({ commit }, { id }) {
     const response = await axios.get(`${API_PREFIX}pets/${id}`)
-    commit('SUCCESS', response.data)
+    commit('ADD', response.data)
     return response.data
-  }
-}
-
-const getters = {
-  detail (state) {
-    return state
   }
 }
 
 export const petDetailModule = {
   namespaced: true,
   state: createDefaultState(),
-  getters,
   mutations,
   actions
 }
