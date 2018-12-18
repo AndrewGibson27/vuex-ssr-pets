@@ -5,6 +5,7 @@ import LocationList from './LocationList'
 import LocationDetail from './LocationDetail'
 import PetsHome from './PetsHome'
 import PetDetail from './PetDetail'
+import NotFound from '../NotFound'
 
 Vue.use(Router)
 
@@ -42,7 +43,8 @@ export function createRouter () {
       },
       {
         path: '*',
-        redirect: { name: 'location-list' }
+        name: 'not-found',
+        component: NotFound
       }
     ]
   })
