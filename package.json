@@ -1,9 +1,8 @@
 {
-  "name": "vuex-workshop",
+  "name": "vuex-ssr-pets",
   "version": "1.0.0",
-  "description": "A Vuex workshop",
-  "author": "Blake Newman <blake.newman@askattest.com>",
-  "private": true,
+  "description": "A proof-of-concept SPA using Vue, Vuex and Vue Router",
+  "author": "Andrew Gibson <atgibson27@gmail.com>",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node server",
     "start": "cross-env NODE_ENV=production node server",
@@ -88,5 +87,6 @@
     "webpack-hot-middleware": "2.21.2",
     "webpack-merge": "4.1.2",
     "webpack-node-externals": "1.6.0"
-  }
+  },
+  "license": "MIT"
 }
